@@ -31,18 +31,20 @@ sdcard="/dev/$1"
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
 echo -e "${WARN_COLOR}Downloading the Arch Linux ARM root filesystem${NO_COLOR}"
-curl -LO  --progress-bar http://releases.openelec.tv/OpenELEC-RPi2.arm-${openelec_version}.img.gz
+if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img.gz" ]; then
+    curl -LO  --progress-bar http://releases.openelec.tv/OpenELEC-RPi2.arm-${openelec_version}.img.gz
+fi
 
-echo -e "${WARN_COLOR}Setup SD Card${NO_COLOR}"
-parted -s ${sdcard} unit s print
-parted ${sdcard} mkpart primary fat32 0 100%
+# echo -e "${WARN_COLOR}Setup SD Card${NO_COLOR}"
+# parted -s ${sdcard} unit s print
+# parted ${sdcard} mkpart primary fat32 0 100%
 
-echo -e "${WARN_COLOR}Unmounting${NO_COLOR}"
-umount ${sdcard}1
+# echo -e "${WARN_COLOR}Unmounting${NO_COLOR}"
+# umount ${sdcard}1
 
-echo -e "${WARN_COLOR}Installing Openelec to SD Card${NO_COLOR}"
-gunzip -d OpenELEC-RPi2.arm-${openelec_version}.img.gz
-dd if=OpenELEC-RPi2.arm-${openelec_version}.img of=${sdcard} bs=4M
-sync
+# echo -e "${WARN_COLOR}Installing Openelec to SD Card${NO_COLOR}"
+# gunzip -d OpenELEC-RPi2.arm-${openelec_version}.img.gz
+# dd if=OpenELEC-RPi2.arm-${openelec_version}.img of=${sdcard} bs=4M
+# sync
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"

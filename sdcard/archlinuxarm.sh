@@ -29,7 +29,9 @@ sdcard="/dev/$1"
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
 echo -e "${WARN_COLOR}Downloading the Arch Linux ARM root filesystem${NO_COLOR}"
-curl -LO  --progress-bar http://archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+if [ ! -f "ArchLinuxARM-rpi-2-latest.tar.gz" ]; then
+    curl -LO  --progress-bar http://archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+fi
 
 echo -e "${WARN_COLOR}Setup SD Card${NO_COLOR}"
 parted -s ${sdcard} unit s print
