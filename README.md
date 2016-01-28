@@ -11,6 +11,12 @@ Develop :
 
 ![Image of components](https://github.com/nlamirault/framboise/raw/master/docs/framboise.png "Framboise components")
 
+Tools for [Raspberry PI 2][]
+
+* `sdcard/openelec.sh`: create a SDCard with last version of [Openelec][].
+* `sdcard/archlinuxarm.sh`: install an [ArchLinuxARM][] on the SDCard
+
+
 
 ## Contributing
 
@@ -33,3 +39,7 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 
 
 [badge-license]: https://img.shields.io/badge/license-Apache2-green.svg?style=flat
+
+[Raspberry PI 2]: https://www.raspberrypi.org/products/raspberry-pi-2-model-b/
+[Openelec]: http://openelec.tv/get-openelec
+[ArchLinuxARM]: http://archlinuxarm.org/
