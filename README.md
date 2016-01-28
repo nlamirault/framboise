@@ -9,6 +9,7 @@ Master :
 Develop :
 * [![Circle CI](https://circleci.com/gh/nlamirault/framboise/tree/develop.svg?style=svg)](https://circleci.com/gh/nlamirault/framboise/tree/develop)
 
+![Image of components](https://github.com/nlamirault/framboise/raw/master/docs/framboise.png "Framboise components")
 
 
 ## Contributing
