@@ -29,6 +29,11 @@ if [ ! -f "${raspbian_version}-raspbian-jessie.zip" ]; then
     curl -LO  --progress-bar http://downloads.raspberrypi.org/raspbian/images/raspbian-${raspbian_dir}/${raspbian_version}-raspbian-jessie.zip
 fi
 
+echo -e "${WARN_COLOR}Extracting the Raspbian image${NO_COLOR}"
+if [ ! -f "${raspbian_version}-raspbian-jessie.img" ]; then
+    unzip ${raspbian_version}-raspbian-jessie.zip
+fi
+
 echo -e "${WARN_COLOR}Downloading Linux Kernel${NO_COLOR}"
 if [ ! -f "kernel-qemu" ]; then
     curl -LO --progress-bar http://xecdesign.com/downloads/linux-qemu/kernel-qemu
