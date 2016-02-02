@@ -49,25 +49,16 @@ fi
 
 echo -e "${WARN_COLOR}Patching Raspbian${NO_COLOR}"
 MOUNT_PATH=/mnt/loop0p2
-kpartx -av ${raspbian_version}-raspbian-jessie.img
-mkdir -v ${MOUNT_PATH} 2> /dev/null
-mount /dev/mapper/loop0p2 ${MOUNT_PATH}
+sudo kpartx -av ${raspbian_version}-raspbian-jessie.img
+sudo mkdir -v ${MOUNT_PATH} 2> /dev/null
+sudo mount /dev/mapper/loop0p2 ${MOUNT_PATH}
 
-# Disable libcofi_rpi.so
-# Comment "/usr/lib/arm-linux-gnueabihf/libcofi_rpi.so"
-# in "${MOUNT_PATH}/etc/ld.so.preload"
-sed -ri "s/^.*libcofi_rpi.so/#\0/g" ${MOUNT_PATH}/etc/ld.so.preload
-
-# Fix partition names
-cat << 'EOF' >> ${MOUNT_PATH}/etc/udev/rules.d/90-qemu.rules
-KERNEL=="sda", SYMLINK+="mmcblk0"
-KERNEL=="sda?", SYMLINK+="mmcblk0p%n"
-KERNEL=="sda2", SYMLINK+="root"
-EOF
+sudo sed -e '/.*libarmmem.so.*/ s/^#*/#/' -i ${MOUNT_PATH}/etc/ld.so.preload
+sudo sed -e '/.*\/dev\/mmcblk.*/ s/^#*/#/' -i ${MOUNT_PATH}/etc/fstab
 
 # Umount the partition
-umount ${MOUNT_PATH}
-kpartx -d ${raspbian_version}-raspbian-jessie.img
+sudo umount ${MOUNT_PATH}
+sudo kpartx -d ${raspbian_version}-raspbian-jessie.img
 
 echo -e "${WARN_COLOR}Launch QEmu Raspbian${NO_COLOR}"
 # qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda ${raspbian_version}-raspbian-jessie.img
