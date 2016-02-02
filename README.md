@@ -15,7 +15,7 @@ Tools for [Raspberry PI 2][]
 
 * `sdcard/openelec.sh`: create a SDCard with last version of [Openelec][].
 * `sdcard/archlinuxarm.sh`: install an [ArchLinuxARM][] on the SDCard
-
+* `sdcard/hypriot.sh`: create a SDCard with [Hypriot][] installed.
 
 
 ## Contributing
@@ -43,3 +43,4 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Raspberry PI 2]: https://www.raspberrypi.org/products/raspberry-pi-2-model-b/
 [Openelec]: http://openelec.tv/get-openelec
 [ArchLinuxARM]: http://archlinuxarm.org/
+[Hypriot]: http://blog.hypriot.com/
