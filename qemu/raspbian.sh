@@ -34,13 +34,18 @@ if [ ! -f "${raspbian_version}-raspbian-jessie.img" ]; then
     unzip ${raspbian_version}-raspbian-jessie.zip
 fi
 
-echo -e "${WARN_COLOR}Downloading Linux Kernel${NO_COLOR}"
-if [ ! -f "kernel-qemu" ]; then
-    curl -LO --progress-bar http://xecdesign.com/downloads/linux-qemu/kernel-qemu
-fi
-
 echo -e "${WARN_COLOR}Resizing Raspbian image${NO_COLOR}"
 qemu-img resize ${raspbian_version}-raspbian-jessie.img +10G
+
+echo -e "${WARN_COLOR}Downloading Linux Kernel${NO_COLOR}"
+#if [ ! -f "kernel-qemu" ]; then
+# curl -LO --progress-bar http://xecdesign.com/downloads/linux-qemu/kernel-qemu
+if [ ! -f "kernel-qemu-4.1.7-jessie" ]; then
+    curl -LO --progress-bar https://github.com/dhruvvyas90/qemu-rpi-kernel/archive/master.zip
+    unzip master.zip
+    mv qemu-rpi-kernel-master/kernel-qemu-4.1.7-jessie .
+    rmdir qemu-rpi-kernel-master
+fi
 
 echo -e "${WARN_COLOR}Patching Raspbian${NO_COLOR}"
 MOUNT_PATH=/mnt/loop0p2
@@ -66,6 +71,7 @@ kpartx -d ${raspbian_version}-raspbian-jessie.img
 
 echo -e "${WARN_COLOR}Launch QEmu Raspbian${NO_COLOR}"
 # qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda ${raspbian_version}-raspbian-jessie.img
-qemu-system-arm -M raspi2 -kernel ${raspbian_version}-raspbian-jessie.img -sd ${raspbian_version}-raspbian-jessie.vhd -append "rw earlyprintk loglevel=8 console=ttyAMA0,115200 dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2" -dtb raspbian-boot/bcm2709-rpi-2-b.dtb -usbdevice mouse -usbdevice keyboard -serial stdio
+
+qemu-system-arm -kernel kernel-qemu-4.1.7-jessie -cpu arm1176 -m 256 -M versatilepb -no-reboot -no-shutdown -serial stdio -append "root=/dev/sda2 rootfstype=ext4 rw" -hda ${raspbian_version}-raspbian-jessie.img
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
