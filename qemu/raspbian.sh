@@ -43,10 +43,29 @@ echo -e "${WARN_COLOR}Resizing Raspbian image${NO_COLOR}"
 qemu-img resize ${raspbian_version}-raspbian-jessie.img +10G
 
 echo -e "${WARN_COLOR}Patching Raspbian${NO_COLOR}"
-echo -e "If it is the first boot, into the file /etc/ld.so.preload, comment this line:"
-echo -e "#/usr/lib/arm-linux-gnueabihf/libcofi_rpi.so"
+MOUNT_PATH=/mnt/loop0p2
+kpartx -av ${raspbian_version}-raspbian-jessie.img
+mkdir -v ${MOUNT_PATH} 2> /dev/null
+mount /dev/mapper/loop0p2 ${MOUNT_PATH}
+
+# Disable libcofi_rpi.so
+# Comment "/usr/lib/arm-linux-gnueabihf/libcofi_rpi.so"
+# in "${MOUNT_PATH}/etc/ld.so.preload"
+sed -ri "s/^.*libcofi_rpi.so/#\0/g" ${MOUNT_PATH}/etc/ld.so.preload
+
+# Fix partition names
+cat << 'EOF' >> ${MOUNT_PATH}/etc/udev/rules.d/90-qemu.rules
+KERNEL=="sda", SYMLINK+="mmcblk0"
+KERNEL=="sda?", SYMLINK+="mmcblk0p%n"
+KERNEL=="sda2", SYMLINK+="root"
+EOF
+
+# Umount the partition
+umount ${MOUNT_PATH}
+kpartx -d ${raspbian_version}-raspbian-jessie.img
 
 echo -e "${WARN_COLOR}Launch QEmu Raspbian${NO_COLOR}"
-qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda ${raspbian_version}-raspbian-jessie.img
+# qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda ${raspbian_version}-raspbian-jessie.img
+qemu-system-arm -M raspi2 -kernel ${raspbian_version}-raspbian-jessie.img -sd ${raspbian_version}-raspbian-jessie.vhd -append "rw earlyprintk loglevel=8 console=ttyAMA0,115200 dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2" -dtb raspbian-boot/bcm2709-rpi-2-b.dtb -usbdevice mouse -usbdevice keyboard -serial stdio
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
