@@ -16,7 +16,6 @@ Tools for [Raspberry PI 2][]
 * `sdcard/openelec.sh`: create a SDCard with last version of [Openelec][].
 * `sdcard/archlinuxarm.sh`: install an [ArchLinuxARM][] on the SDCard
 * `sdcard/hypriot.sh`: create a SDCard with [Hypriot][] installed.
-
 * `qemu/raspbian.sh`: Install [Raspbian][] into [Qemu][]
 
 ## Contributing
