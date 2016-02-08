@@ -17,6 +17,7 @@ Tools for [Raspberry PI 2][]
 * `sdcard/archlinuxarm.sh`: install an [ArchLinuxARM][] on the SDCard
 * `sdcard/hypriot.sh`: create a SDCard with [Hypriot][] installed.
 
+* `qemu/raspbian.sh`: Install [Raspbian][] into [Qemu][]
 
 ## Contributing
 
@@ -44,3 +45,5 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [Openelec]: http://openelec.tv/get-openelec
 [ArchLinuxARM]: http://archlinuxarm.org/
 [Hypriot]: http://blog.hypriot.com/
+[Raspbian]: https://www.raspbian.org/
+[Qemu:]: http://wiki.qemu.org/Index.html
