@@ -45,4 +45,4 @@ Nicolas Lamirault <nicolas.lamirault@gmail.com>
 [ArchLinuxARM]: http://archlinuxarm.org/
 [Hypriot]: http://blog.hypriot.com/
 [Raspbian]: https://www.raspbian.org/
-[Qemu:]: http://wiki.qemu.org/Index.html
+[Qemu]: http://wiki.qemu.org/Index.html
