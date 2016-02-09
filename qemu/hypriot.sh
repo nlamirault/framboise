@@ -37,5 +37,5 @@ qemu-system-arm \
     -kernel kernel-qemu-4.1.7-jessie \
     -hda hypriot-rpi-${hypriot_img}.img \
     -m 256 \
-    -append "root=/dev/sda2" \
+    -append "root=/dev/sda2 rootfstype=ext4 rw" \
     -net nic -net user,hostfwd=tcp::4444-:22,hostfwd=tcp::22280-:80
