@@ -34,16 +34,17 @@ qemu-img resize ${raspbian_version}-raspbian-jessie.img +10G
 download_linux_kernel
 
 echo -e "${WARN_COLOR}Patching Raspbian${NO_COLOR}"
-MOUNT_PATH=/mnt/loop0p2
+loop=$(losetup -f)
+mount_path=/mnt/${loop}
 sudo kpartx -avs ${raspbian_version}-raspbian-jessie.img
-sudo mkdir -v ${MOUNT_PATH} 2> /dev/null
-sudo mount /dev/mapper/loop0p2 ${MOUNT_PATH}
+sudo mkdir -v ${mount_path} 2> /dev/null
+sudo mount /dev/mapper/${loop} ${mount_path}
 
-sudo sed -e '/.*libarmmem.so.*/ s/^#*/#/' -i ${MOUNT_PATH}/etc/ld.so.preload
-sudo sed -e '/.*\/dev\/mmcblk.*/ s/^#*/#/' -i ${MOUNT_PATH}/etc/fstab
+sudo sed -e '/.*libarmmem.so.*/ s/^#*/#/' -i ${mount_path}/etc/ld.so.preload
+sudo sed -e '/.*\/dev\/mmcblk.*/ s/^#*/#/' -i ${mount_path}/etc/fstab
 
 # Umount the partition
-sudo umount ${MOUNT_PATH}
+sudo umount ${mount_path}
 sudo kpartx -d ${raspbian_version}-raspbian-jessie.img
 
 echo -e "${WARN_COLOR}Launch QEmu Raspbian${NO_COLOR}"
