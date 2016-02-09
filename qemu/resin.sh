@@ -29,6 +29,28 @@ echo -e "${OK_COLOR}== QEmu Resin.io [${app}] ==${NO_COLOR}"
 
 download_linux_kernel
 
+# Patch or not ?
+#
+# echo -e "${WARN_COLOR}Patching Raspbian${NO_COLOR}"
+# sudo kpartx -avs ${image}
+# dev_loop=$(losetup -a|grep "${image}"|awk -F":" '{print $1}')
+# loop=$(basename ${dev_loop})
+# mount_path="/mnt/${loop}p2"
+# sudo mkdir -v ${mount_path} 2> /dev/null
+# sudo mount /dev/mapper/${loop}p2 ${mount_path}
+
+# if [ ! -d "${mount_path}/etc/" ]; then
+#     echo -e "${ERROR_COLOR}Mount ${mount_path} failed.${NO_COLOR}"
+#     exit 1
+# fi
+# if [ -f "${mount_path}/etc/fstab" ]; then
+#     sudo sed -e '/.*\/dev\/mmcblk.*/ s/^#*/#/' -i ${mount_path}/etc/fstab
+# fi
+
+# # Umount the partition
+# sudo umount ${mount_path}
+# sudo kpartx -d ${image}
+
 echo -e "${WARN_COLOR}Launch QEmu Resin.io ${NO_COLOR}"
 qemu-system-arm \
     -M versatilepb \
