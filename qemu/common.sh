@@ -24,7 +24,7 @@ function download_file {
     file=$1
     uri=$2
     if [ ! -f "${file}" ]; then
-        curl -LO  --progress-bar ${uri}
+        curl -L -o ${file} --progress-bar ${uri}
     fi
 }
 
@@ -43,5 +43,6 @@ function download_linux_kernel {
         unzip master.zip
         mv qemu-rpi-kernel-master/kernel-qemu-4.1.7-jessie .
         rmdir qemu-rpi-kernel-master
+        rm master.zip
     fi
 }
