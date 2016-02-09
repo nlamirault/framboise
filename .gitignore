@@ -14,3 +14,6 @@ qemu/qemu-rpi-kernel-master/
 # Raspbian
 *-raspbian-jessie.zip
 *-raspbian-jessie.img
+
+# Resin.io
+resin-*
