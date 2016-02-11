@@ -31,11 +31,11 @@ extract_image hypriot-rpi-${hypriot_img}.img.zip hypriot-rpi-${hypriot_img}.img
 download_linux_kernel
 
 echo -e "${WARN_COLOR}Launch QEmu Hypriot ${hypriot_version}${NO_COLOR}"
-qemu-system-arm \
+sudo qemu-system-arm \
     -M versatilepb \
     -cpu arm1176 \
     -kernel kernel-qemu-4.1.7-jessie \
     -hda hypriot-rpi-${hypriot_img}.img \
     -m 256 \
     -append "root=/dev/sda2 rootfstype=ext4 rw" \
-    -net nic -net user,hostfwd=tcp::4444-:22,hostfwd=tcp::22280-:80
+    -netdev user,id=mynet0,net=192.168.1.0/24,dhcpstart=192.168.1.10
