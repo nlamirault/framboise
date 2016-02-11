@@ -53,8 +53,8 @@ qemu-system-arm \
     -cpu arm1176 \
     -m 256 \
     -M versatilepb \
-    -no-reboot \
-    -no-shutdown \
+    # -no-reboot \
+    # -no-shutdown \
     -serial stdio \
     -append "root=/dev/sda2 rootfstype=ext4 rw" \
     -hda ${raspbian_version}-raspbian-jessie.img
