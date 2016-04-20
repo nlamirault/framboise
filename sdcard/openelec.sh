@@ -19,7 +19,7 @@ OK_COLOR="\033[32;01m"
 ERROR_COLOR="\033[31;01m"
 WARN_COLOR="\033[33;01m"
 
-openelec_version="6.0.1"
+openelec_version="6.0.3"
 
 echo -e "${OK_COLOR}== Openelec ${openelec_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
