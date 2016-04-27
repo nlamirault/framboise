@@ -4,6 +4,10 @@ ArchLinuxARM-rpi-2-latest.tar.gz
 # Openelec
 OpenELEC-RPi2.arm-*
 
+# OSMC
+OSMC_TGT_*.img
+OSMC_TGT_*.img.gz
+
 # Qemu
 kernel-qemu
 qemu/hypriot-rpi-*.img*
@@ -14,6 +18,10 @@ qemu/qemu-rpi-kernel-master/
 # Raspbian
 *-raspbian-jessie.zip
 *-raspbian-jessie.img
+
+# Hypriot
+hypriot-rpi-*.img
+hypriot-rpi-*.img.zip
 
 # Resin.io
 resin-*
