@@ -26,6 +26,9 @@ fi
 os=$(get_os)
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
+sdcard=$(get_sdcard $1 ${os})
+echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
+
 echo -e "${WARN_COLOR}Downloading the Arch Linux ARM root filesystem${NO_COLOR}"
 if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img.gz" ]; then
     curl -LO  --progress-bar http://releases.openelec.tv/OpenELEC-RPi2.arm-${openelec_version}.img.gz
