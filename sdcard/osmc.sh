@@ -16,32 +16,33 @@
 
 . commons.sh
 
-openelec_version="6.0.3"
+osmc_version="2016.04-1"
+osmc_img_version="20160403"
 
-echo -e "${OK_COLOR}== Openelec ${openelec_version} for Raspberry Pi 2 ==${NO_COLOR}"
+echo -e "${OK_COLOR}== OSMC ${osmc_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
     display_usage
 fi
 
 os=$(get_os)
-echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
+echo -e "${WARN_COLOR}Operating system: $os${NO_COLOR}"
 
 sdcard=$(get_sdcard $1 ${os})
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
-echo -e "${WARN_COLOR}Downloading the Arch Linux ARM root filesystem${NO_COLOR}"
-if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img.gz" ]; then
-    curl -LO  --progress-bar http://releases.openelec.tv/OpenELEC-RPi2.arm-${openelec_version}.img.gz
+echo -e "${WARN_COLOR}Downloading the OSMC root filesystem${NO_COLOR}"
+if [ ! -f "OSMC_TGT_rbp2_${osmc_img_version}.img.gz" ]; then
+    curl -LO --progress-bar http://download.osmc.tv/installers/diskimages/OSMC_TGT_rbp2_${osmc_img_version}.img.gz
 fi
 
-echo -e "${WARN_COLOR}Extracting the Openelec image${NO_COLOR}"
-if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img" ]; then
-     gunzip -d OpenELEC-RPi2.arm-${openelec_version}.img.gz
+echo -e "${WARN_COLOR}Extracting the OSMC image${NO_COLOR}"
+if [ ! -f "OSMC_TGT_rpb2_${osmc_img_version}.img" ]; then
+     gunzip -d OSMC_TGT_rpb2_${osmc_img_version}.img.gz
 fi
 
-setup_sdcard ${sdcard} ${os}
+setup_sdcard $(sdcard) $(os)
 
-echo -e "${WARN_COLOR}Installing Openelec to SD Card${NO_COLOR}"
-flash_sdcard ${sdcard} OpenELEC-RPi2.arm-${openelec_version}.img ${os}
+echo -e "${WARN_COLOR}Installing OSMC to SD Card${NO_COLOR}"
+flash_sdcard ${sdcard} OSMC_TGT_rpb2_${osmc_img_version}.img ${os}
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"

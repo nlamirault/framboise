@@ -14,35 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. commons.sh
+PWD=$(dirname $(readlink -f $0))
+. ${PWD}/common.sh
 
 hypriot_version="0.6.1"
 hypriot_img="20151115-132854"
 
-echo -e "${OK_COLOR}== Hypriot ${hypriot_version} for Raspberry Pi 2 ==${NO_COLOR}"
-if [ $# -eq 0 ]; then
-    display_usage
-fi
-
-os=$(get_os)
-echo -e "${WARN_COLOR}Operating system: $os${NO_COLOR}"
-
-sdcard=$(get_sdcard $1 ${os})
-echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
+echo -e "${OK_COLOR}== QEmu Hypriot ${hypriot_version} ==${NO_COLOR}"
 
 echo -e "${WARN_COLOR}Downloading the Hypriot image${NO_COLOR}"
-if [ ! -f "hypriot-rpi-${hypriot_img}.img.zip" ]; then
-    curl -LO  --progress-bar http://downloads.hypriot.com/hypriot-rpi-${hypriot_img}.img.zip
-fi
+download_file hypriot-rpi-${hypriot_img}.img.zip http://downloads.hypriot.com/hypriot-rpi-${hypriot_img}.img.zip
 
 echo -e "${WARN_COLOR}Extracting the Hypriot image${NO_COLOR}"
-if [ ! -f "hypriot-rpi-${hypriot_img}.img" ]; then
-     unzip hypriot-rpi-${hypriot_img}.img.zip
-fi
+extract_image hypriot-rpi-${hypriot_img}.img.zip hypriot-rpi-${hypriot_img}.img
 
-setup_sdcard ${sdcard} ${os}
+download_linux_kernel
 
-echo -e "${WARN_COLOR}Installing Hypriot to SD Card${NO_COLOR}"
-flash_sdcard ${sdcard} hypriot-rpi-${hypriot_img}.img ${os}
-
-echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
+echo -e "${WARN_COLOR}Launch QEmu Hypriot ${hypriot_version}${NO_COLOR}"
+sudo qemu-system-arm \
+    -M versatilepb \
+    -cpu arm1176 \
+    -kernel kernel-qemu-4.1.7-jessie \
+    -hda hypriot-rpi-${hypriot_img}.img \
+    -m 256 \
+    -append "root=/dev/sda2 rootfstype=ext4 rw" \
+    -netdev user,id=mynet0,net=192.168.1.0/24,dhcpstart=192.168.1.10
