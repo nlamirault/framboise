@@ -14,20 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NO_COLOR="\033[0m"
-OK_COLOR="\033[32;01m"
-ERROR_COLOR="\033[31;01m"
-WARN_COLOR="\033[33;01m"
+. commons.sh
 
 openelec_version="6.0.3"
 
 echo -e "${OK_COLOR}== Openelec ${openelec_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
-    echo -e "${ERROR_COLOR}Usage: $0 sdX${NO_COLOR}"
-    exit 1
+    display_usage
 fi
 
-sdcard="/dev/$1"
+os=$(get_os)
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
 echo -e "${WARN_COLOR}Downloading the Arch Linux ARM root filesystem${NO_COLOR}"
@@ -35,20 +31,14 @@ if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img.gz" ]; then
     curl -LO  --progress-bar http://releases.openelec.tv/OpenELEC-RPi2.arm-${openelec_version}.img.gz
 fi
 
-echo -e "${WARN_COLOR}Setup SD Card${NO_COLOR}"
-parted -s ${sdcard} unit s print
-parted ${sdcard} mkpart primary fat32 0 100%
-
-echo -e "${WARN_COLOR}Unmounting${NO_COLOR}"
-umount ${sdcard}1
-
 echo -e "${WARN_COLOR}Extracting the Openelec image${NO_COLOR}"
 if [ ! -f "OpenELEC-RPi2.arm-${openelec_version}.img" ]; then
      gunzip -d OpenELEC-RPi2.arm-${openelec_version}.img.gz
 fi
 
+setup_sdcard ${sdcard} ${os}
+
 echo -e "${WARN_COLOR}Installing Openelec to SD Card${NO_COLOR}"
-dd if=OpenELEC-RPi2.arm-${openelec_version}.img of=${sdcard} bs=4M
-sync
+flash_sdcard ${sdcard} OpenELEC-RPi2.arm-${openelec_version}.img ${os}
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
