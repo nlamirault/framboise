@@ -1,6 +1,11 @@
 Framboise ChangeLog
 ====================
 
+# Version 0.3.0
+
+- Update to Hypriot Barbossa (0.8.0)
+- Update to Raspbian 05/2016
+
 # Version 0.2.0 (04/27/2016)
 
 - Refactoring scripts for SD card
