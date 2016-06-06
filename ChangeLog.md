@@ -1,6 +1,12 @@
 Framboise ChangeLog
 ====================
 
+# Version 0.2.0 (04/27/2016)
+
+- Refactoring scripts for SD card
+- Add OSMC script
+- Add Hypriot for QEmu
+
 # Version 0.1.0 (02/02/2016)
 
 - Emulate Raspberry PI 2 on QEmu using Raspbian (version 2015-11-24)

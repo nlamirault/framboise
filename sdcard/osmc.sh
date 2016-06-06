@@ -14,21 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NO_COLOR="\033[0m"
-OK_COLOR="\033[32;01m"
-ERROR_COLOR="\033[31;01m"
-WARN_COLOR="\033[33;01m"
+. commons.sh
 
 osmc_version="2016.04-1"
 osmc_img_version="20160403"
 
 echo -e "${OK_COLOR}== OSMC ${osmc_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
-    echo -e "${ERROR_COLOR}Usage: $0 sdX${NO_COLOR}"
-    exit 1
+    display_usage
 fi
 
-sdcard="/dev/$1"
+os=$(get_os)
+echo -e "${WARN_COLOR}Operating system: $os${NO_COLOR}"
+
+sdcard=$(get_sdcard $1 ${os})
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
 echo -e "${WARN_COLOR}Downloading the OSMC root filesystem${NO_COLOR}"
@@ -36,20 +35,14 @@ if [ ! -f "OSMC_TGT_rbp2_${osmc_img_version}.img.gz" ]; then
     curl -LO --progress-bar http://download.osmc.tv/installers/diskimages/OSMC_TGT_rbp2_${osmc_img_version}.img.gz
 fi
 
-echo -e "${WARN_COLOR}Setup SD Card${NO_COLOR}"
-parted -s ${sdcard} unit s print
-parted ${sdcard} mkpart primary fat32 0 100%
-
-echo -e "${WARN_COLOR}Unmounting${NO_COLOR}"
-umount ${sdcard}1
-
 echo -e "${WARN_COLOR}Extracting the OSMC image${NO_COLOR}"
 if [ ! -f "OSMC_TGT_rpb2_${osmc_img_version}.img" ]; then
      gunzip -d OSMC_TGT_rpb2_${osmc_img_version}.img.gz
 fi
 
+setup_sdcard $(sdcard) $(os)
+
 echo -e "${WARN_COLOR}Installing OSMC to SD Card${NO_COLOR}"
-dd if=OSMC_TGT_rpb2_${osmc_img_version}.img of=${sdcard} bs=4M
-sync
+flash_sdcard ${sdcard} OSMC_TGT_rpb2_${osmc_img_version}.img ${os}
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
