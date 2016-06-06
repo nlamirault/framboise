@@ -16,8 +16,8 @@
 
 . commons.sh
 
-hypriot_version="0.6.1"
-hypriot_img="20151115-132854"
+hypriot_version="0.8.0"
+hypriot_img="v${hypriot_version}"
 
 echo -e "${OK_COLOR}== Hypriot ${hypriot_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
