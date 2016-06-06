@@ -17,8 +17,8 @@
 PWD=$(dirname $(readlink -f $0))
 . ${PWD}/common.sh
 
-raspbian_dir="2015-11-24"
-raspbian_version="2015-11-21"
+raspbian_dir="2016-05-31"
+raspbian_version="2016-05-27"
 
 echo -e "${OK_COLOR}== QEmu Raspbian ${raspbian_version} ==${NO_COLOR}"
 
