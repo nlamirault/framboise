@@ -16,8 +16,8 @@
 
 . commons.sh
 
-osmc_version="2016.04-1"
-osmc_img_version="20160403"
+osmc_version="2016.06-2"
+osmc_img_version="20160621"
 
 echo -e "${OK_COLOR}== OSMC ${osmc_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
