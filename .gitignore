@@ -11,6 +11,7 @@ OSMC_TGT_*.img.gz
 # Qemu
 kernel-qemu
 qemu/hypriot-rpi-*.img*
+qemu/hypriotos-rpi-*.img*
 qemu/kernel-qemu-4.1.7-jessie
 qemu/master.zip
 qemu/qemu-rpi-kernel-master/
