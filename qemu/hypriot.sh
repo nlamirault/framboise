@@ -23,10 +23,10 @@ hypriot_img="v${hypriot_version}"
 echo -e "${OK_COLOR}== QEmu Hypriot ${hypriot_version} ==${NO_COLOR}"
 
 echo -e "${WARN_COLOR}Downloading the Hypriot image${NO_COLOR}"
-download_file hypriot-rpi-${hypriot_img}.img.zip http://downloads.hypriot.com/hypriot-rpi-${hypriot_img}.img.zip
+download_file hypriotos-rpi-${hypriot_img}.img.zip http://downloads.hypriot.com/hypriotos-rpi-${hypriot_img}.img.zip
 
 echo -e "${WARN_COLOR}Extracting the Hypriot image${NO_COLOR}"
-extract_image hypriot-rpi-${hypriot_img}.img.zip hypriot-rpi-${hypriot_img}.img
+extract_image hypriotos-rpi-${hypriot_img}.img.zip hypriotos-rpi-${hypriot_img}.img
 
 download_linux_kernel
 
@@ -35,7 +35,7 @@ sudo qemu-system-arm \
     -M versatilepb \
     -cpu arm1176 \
     -kernel kernel-qemu-4.1.7-jessie \
-    -hda hypriot-rpi-${hypriot_img}.img \
+    -hda hypriotos-rpi-${hypriot_img}.img \
     -m 256 \
     -append "root=/dev/sda2 rootfstype=ext4 rw" \
     -netdev user,id=mynet0,net=192.168.1.0/24,dhcpstart=192.168.1.10
