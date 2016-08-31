@@ -1,9 +1,13 @@
 Framboise ChangeLog
 ====================
 
+# Version 0.4.0
+
+- Update to HypriotOS 1.0.0 (Blackbeard)
+
 # Version 0.3.0
 
-- Update to Hypriot Barbossa (0.8.0)
+- Update to Hypriot 0.8.0 (Barbossa)
 - Update to Raspbian 05/2016
 
 # Version 0.2.0 (04/27/2016)
