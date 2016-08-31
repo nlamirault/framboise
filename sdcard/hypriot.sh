@@ -16,8 +16,17 @@
 
 . commons.sh
 
-hypriot_version="0.8.0"
+hypriot_version="1.0.0"
 hypriot_img="v${hypriot_version}"
+
+hostname=$1
+ssid=$2
+wifipasswd=$3
+
+if [ $# -ne 3 ]; then
+  echo -e "${ERROR_COLOR}Usage: $0 hostname ssid wifipassword${NO_COLOR}"
+  exit 1
+fi
 
 echo -e "${OK_COLOR}== Hypriot ${hypriot_version} for Raspberry Pi 2 ==${NO_COLOR}"
 if [ $# -eq 0 ]; then
@@ -31,18 +40,18 @@ sdcard=$(get_sdcard $1 ${os})
 echo -e "${WARN_COLOR}Use sdcard :${NO_COLOR} ${sdcard}"
 
 echo -e "${WARN_COLOR}Downloading the Hypriot image${NO_COLOR}"
-if [ ! -f "hypriot-rpi-${hypriot_img}.img.zip" ]; then
-    curl -LO  --progress-bar http://downloads.hypriot.com/hypriot-rpi-${hypriot_img}.img.zip
+if [ ! -f "hypriotos-rpi-${hypriot_img}.img.zip" ]; then
+    curl -LO  --progress-bar http://downloads.hypriot.com/hypriotos-rpi-${hypriot_img}.img.zip
 fi
 
 echo -e "${WARN_COLOR}Extracting the Hypriot image${NO_COLOR}"
-if [ ! -f "hypriot-rpi-${hypriot_img}.img" ]; then
-     unzip hypriot-rpi-${hypriot_img}.img.zip
+if [ ! -f "hypriotos-rpi-${hypriot_img}.img" ]; then
+     unzip hypriotos-rpi-${hypriot_img}.img.zip
 fi
 
 setup_sdcard ${sdcard} ${os}
 
 echo -e "${WARN_COLOR}Installing Hypriot to SD Card${NO_COLOR}"
-flash_sdcard ${sdcard} hypriot-rpi-${hypriot_img}.img ${os}
+flash_sdcard ${sdcard} hypriotos-rpi-${hypriot_img}.img ${os}
 
 echo -e "${OK_COLOR}== Done ==${NO_COLOR}"
