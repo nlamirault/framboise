@@ -40,7 +40,7 @@ if [ ! -f "OSMC_TGT_rpb2_${osmc_img_version}.img" ]; then
      gunzip -d OSMC_TGT_rpb2_${osmc_img_version}.img.gz
 fi
 
-setup_sdcard $(sdcard) $(os)
+setup_sdcard $sdcard $os
 
 echo -e "${WARN_COLOR}Installing OSMC to SD Card${NO_COLOR}"
 flash_sdcard ${sdcard} OSMC_TGT_rpb2_${osmc_img_version}.img ${os}
