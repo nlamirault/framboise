@@ -14,7 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. commons.sh
+dir=$(dirname "$(readlink -f "$0")")
+. ${dir}/commons.sh
 
 openelec_version="6.0.3"
 

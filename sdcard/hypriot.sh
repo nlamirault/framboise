@@ -14,7 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. commons.sh
+dir=$(dirname "$(readlink -f "$0")")
+. ${dir}/commons.sh
 
 hypriot_version="1.0.0"
 hypriot_img="v${hypriot_version}"

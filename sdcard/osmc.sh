@@ -14,7 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-. commons.sh
+dir=$(dirname "$(readlink -f "$0")")
+. ${dir}/commons.sh
 
 osmc_version="2016.06-2"
 osmc_img_version="20160621"
